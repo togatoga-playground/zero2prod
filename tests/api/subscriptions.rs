@@ -6,7 +6,7 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
     let client = reqwest::Client::new();
     // Act
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
-    let response = app.post_subscriptions(invalid_body.into()).await;
+    let response = app.post_subscriptions(body.into()).await;
     assert_eq!(200, response.status().as_u16());
 
     let saved = sqlx::query!("SELECT email, name FROM subscriptions")
@@ -50,7 +50,7 @@ async fn subscribe_returns_a_400_when_fields_are_present_but_invalid() {
     ];
 
     for (body, description) in test_cases {
-        let response = app.post_subscriptions(invalid_body.into()).await;
+        let response = app.post_subscriptions(body.into()).await;
 
         assert_eq!(
             400,

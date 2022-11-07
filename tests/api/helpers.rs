@@ -30,9 +30,9 @@ pub struct TestApp {
 impl TestApp {
     pub async fn post_subscriptions(&self, body: String) -> reqwest::Response {
         reqwest::Client::new()
-            .post(&format!("{}/subscriptions", &app.address))
+            .post(&format!("{}/subscriptions", &self.address))
             .header("Content-Type", "application/x-www-form-urlencoded")
-            .body(invalid_body)
+            .body(body)
             .send()
             .await
             .expect("Failed to execute request.")
