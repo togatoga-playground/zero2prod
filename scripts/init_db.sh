@@ -34,7 +34,7 @@ if [[ -z "${SKIP_DOCKER}" ]]; then
 fi
 
 export PGPASSWORD="${DB_PASSWORD}"
-until ${psql} -h "localhost" -U "${DB_USER}" -p "${DB_PORT}" -d "postgres" -c '\q'; do
+until psql -h "localhost" -U "${DB_USER}" -p "${DB_PORT}" -d "postgres" -c '\q'; do
     echo >&2 "Postgres is still unavailable - sleeping"
     sleep 1
 done
